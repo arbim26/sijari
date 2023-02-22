@@ -19,11 +19,11 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('login');
+})->middleware('auth');
 
 Auth::routes();
-
+ 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
