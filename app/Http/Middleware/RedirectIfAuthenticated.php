@@ -27,10 +27,13 @@ class RedirectIfAuthenticated
             // }
 
             if( Auth::guard($guard)->check() && Auth::user()->role ==1){
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('caleg.dashboard');
             }
             elseif( Auth::guard($guard)->check() && Auth::user()->role ==2){
-                return redirect()->route('user.dashboard');
+                return redirect()->route('supervisor.dashboard');
+            }
+            elseif( Auth::guard($guard)->check() && Auth::user()->role ==3){
+                return redirect()->route('relawan.dashboard');
             }
         }
 

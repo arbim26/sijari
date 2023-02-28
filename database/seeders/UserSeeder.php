@@ -18,18 +18,34 @@ class UserSeeder extends Seeder
     public function run()
     {
 
+        // \App\Models\User::factory()->create([
+        //     'name' =>'User',
+        //     'email' =>'user@gmail.com',
+        //     'role' =>'2',
+        //     'password' =>bcrypt('123456789'),
+        //     'remember_token' =>Str::random('60'),
+        // ]);
+
         \App\Models\User::factory()->create([
-            'name' =>'Admin',
-            'email' =>'admin@gmail.com',
+            'name' =>'Caleg',
+            'email' =>'caleg@gmail.com',
             'role' =>'1',
+            'password' =>bcrypt('123456789'),
+            'remember_token' =>Str::random('60'),
+        ]);
+        
+        \App\Models\User::factory()->create([
+            'name' =>'Supervisor',
+            'email' =>'supervisor@gmail.com',
+            'role' =>'2',
             'password' =>bcrypt('123456789'),
             'remember_token' =>Str::random('60'),
         ]);
 
         \App\Models\User::factory()->create([
-            'name' =>'User',
-            'email' =>'user@gmail.com',
-            'role' =>'2',
+            'name' =>'Relawan',
+            'email' =>'relawan@gmail.com',
+            'role' =>'3',
             'password' =>bcrypt('123456789'),
             'remember_token' =>Str::random('60'),
         ]);

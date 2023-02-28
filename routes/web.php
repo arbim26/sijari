@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CalegController;
+use App\Http\Controllers\RelawanController;
+use App\Http\Controllers\SupervisorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +42,15 @@ Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function(){
     Route::get('profile',[UserController::class,'profile'])->name('user.profile');
     Route::get('settings',[UserController::class,'settings'])->name('user.settings');
 });
+
+Route::group(['prefix'=>'caleg', 'middleware'=>['isCaleg','auth']], function(){
+    Route::get('dashboard',[CalegController::class,'index'])->name('caleg.dashboard');
+});
+
+Route::group(['prefix'=>'relawan', 'middleware'=>['isRelawan','auth']], function(){
+    Route::get('dashboard',[RelawanController::class,'index'])->name('relawan.dashboard');
+});
+
+Route::group(['prefix'=>'supervisor', 'middleware'=>['isSupervisor','auth']], function(){
+    Route::get('dashboard',[SupervisorController::class,'index'])->name('supervisor.dashboard');
+}); 

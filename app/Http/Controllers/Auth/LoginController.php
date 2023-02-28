@@ -31,10 +31,13 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
         protected function redirectTo(){
             if( Auth()->user()->role == 1){
-                return route('admin.dashboard');
+                return route('caleg.dashboard');
             }
             elseif( Auth()->user() == 2){
-                return route('user.dashboard');
+                return route('supervisor.dashboard');
+            }
+            elseif( Auth()->user() == 3){
+                return route('relawan.dashboard');
             }
         }
     /**
@@ -53,14 +56,18 @@ class LoginController extends Controller
             'email'=>'required|email',
             'password'=>'required'
         ]);
+        // dd($request->all());
 
         if( auth()->attempt(array('email'=>$input['email'], 'password'=>$input['password'])) ){
             
             if( auth()->user()->role == 1 ){
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('caleg.dashboard');
             }
             elseif( auth()->user()->role == 2 ){
-                return redirect()->route('user.dashboard');
+                return redirect()->route('supervisor.dashboard');
+            }
+            elseif( auth()->user()->role == 3 ){
+                return redirect()->route('relawan.dashboard');
             }
         }else{
             return redirect()->route('login')->with('error','Email and password are wrong');
