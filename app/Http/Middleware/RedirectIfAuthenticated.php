@@ -25,8 +25,17 @@ class RedirectIfAuthenticated
             // if (Auth::guard($guard)->check()) {
             //     return redirect(RouteServiceProvider::HOME);
             // }
+            // if (Auth::guard($guard)->check()) {
+            //     return redirect(RouteServiceProvider::HOME);
+            // }
 
-            if( Auth::guard($guard)->check() && Auth::user()->role ==1){
+            // if ($guard == "admin" && Auth::guard($guard)->check()) {
+            //     return redirect('/admin/dashboard');
+            // }
+            if ($guard == "admin" && Auth::guard($guard)->check()) {
+                return redirect('/admin/dashboard');
+            }
+            elseif( Auth::guard($guard)->check() && Auth::user()->role ==1){
                 return redirect()->route('caleg.dashboard');
             }
             elseif( Auth::guard($guard)->check() && Auth::user()->role ==2){

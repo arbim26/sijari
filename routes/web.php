@@ -10,6 +10,9 @@ use App\Http\Controllers\CalegController;
 use App\Http\Controllers\RelawanController;
 use App\Http\Controllers\SupervisorController;
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,22 +29,26 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Auth::routes();
- 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::resource('user', UserController::class);
+
+Route::get('/admin',[LoginController::class,'showAdminLoginForm'])->name('admin.login-view');
+Route::get('/register',[RegisterController::class,'showUserLoginForm'])->name('register');
+
+Route::get('/admin/register',[RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
+Route::post('/admin/login',[LoginController::class,'adminLogin'])->name('admin.login');
+Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('admin.register');
 
 
+// Route::group(['prefix'=>'admin', 'middleware'=>['Admin','auth']], function(){
+    
+//     Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+//     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
+//     Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
+// });
 
-Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth']], function(){
-    Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
-    Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
-    Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
-});
-
-Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth']], function(){
-    Route::get('dashboard',[UserController::class,'index'])->name('user.dashboard');
-    Route::get('profile',[UserController::class,'profile'])->name('user.profile');
-    Route::get('settings',[UserController::class,'settings'])->name('user.settings');
-});
 
 Route::group(['prefix'=>'caleg', 'middleware'=>['isCaleg','auth']], function(){
     Route::get('dashboard',[CalegController::class,'index'])->name('caleg.dashboard');

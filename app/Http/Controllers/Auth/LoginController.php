@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class LoginController extends Controller
 {
@@ -30,7 +31,10 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
         protected function redirectTo(){
-            if( Auth()->user()->role == 1){
+            if( Auth()->admin()->role == 0){
+                return route('admin.dashboard');
+            }
+            elseif( Auth()->user()->role == 1){
                 return route('caleg.dashboard');
             }
             elseif( Auth()->user() == 2){
@@ -48,6 +52,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        // $this->middleware('guest:admin')->except('logout');
     }
 
     public function login(Request $request){
@@ -59,8 +64,10 @@ class LoginController extends Controller
         // dd($request->all());
 
         if( auth()->attempt(array('email'=>$input['email'], 'password'=>$input['password'])) ){
-            
-            if( auth()->user()->role == 1 ){
+            if( Auth()->user()->role == 0){
+                return route('admin.dashboard');
+            }
+            elseif( auth()->user()->role == 1 ){
                 return redirect()->route('caleg.dashboard');
             }
             elseif( auth()->user()->role == 2 ){
@@ -72,5 +79,24 @@ class LoginController extends Controller
         }else{
             return redirect()->route('login')->with('error','Email and password are wrong');
         }
+    }
+
+    public function showAdminLoginForm()
+    {
+        return view('auth.adminlogin', ['url' => route('admin.login-view'), 'title'=>'Admin']);
+    }
+
+    public function adminLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('admin')->attempt((['email' => $request->email, 'password' => $request->password]))){
+            return redirect()->intended('/admin/dashboard');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
     }
 }
