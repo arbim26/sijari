@@ -64,10 +64,7 @@ class LoginController extends Controller
         // dd($request->all());
 
         if( auth()->attempt(array('email'=>$input['email'], 'password'=>$input['password'])) ){
-            if( Auth()->user()->role == 0){
-                return route('admin.dashboard');
-            }
-            elseif( auth()->user()->role == 1 ){
+            if( auth()->user()->role == 1 ){
                 return redirect()->route('caleg.dashboard');
             }
             elseif( auth()->user()->role == 2 ){
@@ -83,18 +80,19 @@ class LoginController extends Controller
 
     public function showAdminLoginForm()
     {
-        return view('auth.adminlogin', ['url' => route('admin.login-view'), 'title'=>'Admin']);
+        return view('auth.logmin');
     }
 
     public function adminLogin(Request $request)
     {
+        // dd(Auth::guard('admin')->attempt((['email' => $request->email, 'password' => $request->password])));
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6'
         ]);
 
         if (Auth::guard('admin')->attempt((['email' => $request->email, 'password' => $request->password]))){
-            return redirect()->intended('/admin/dashboard');
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withInput($request->only('email', 'remember'));

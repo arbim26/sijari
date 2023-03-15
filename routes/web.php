@@ -40,11 +40,11 @@ Route::get('/register',[RegisterController::class,'showUserLoginForm'])->name('r
 Route::get('/admin/register',[RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
 Route::post('/admin/login',[LoginController::class,'adminLogin'])->name('admin.login');
 Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('admin.register');
+Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 
 
 // Route::group(['prefix'=>'admin', 'middleware'=>['Admin','auth']], function(){
     
-//     Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 //     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
 //     Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
 // });

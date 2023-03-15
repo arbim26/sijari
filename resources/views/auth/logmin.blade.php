@@ -9,7 +9,7 @@
                 <div class="card-header">{{ $title ?? "" }} {{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('admin.login') }}">
                       {{-- @isset($route)
                           <form method="POST" action="{{ $route }}">
                       @else
