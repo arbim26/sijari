@@ -23,7 +23,7 @@
           <td>{{$row->name}}</td>
           <td>{{$row->email}}</td>
           <td style="display: flex; gap: 20px" >
-            <form class="d-flex gap-4 " onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.destroy', $row->id) }}" method="POST">
+            <form class="d-flex gap-4 " onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pengguna.destroy', $row->id) }}" method="POST">
               @csrf
               @method('DELETE')
               <div>
@@ -47,7 +47,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Edit Caleg</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="{{ route('admin.update', $row->id) }}" method="POST">
+              <form action="{{ route('pengguna.update', $row->id) }}" method="POST">
               <div class="modal-body">
                   @method('PUT')
                   @csrf

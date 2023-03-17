@@ -46,7 +46,7 @@ Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard'
 Route::get('admin/caleg',[AdminController::class,'caleg'])->name('caleg')->middleware('auth:admin');
 Route::get('admin/supervisor',[AdminController::class,'supervisor'])->name('supervisor')->middleware('auth:admin');
 Route::get('admin/relawan',[AdminController::class,'relawan'])->name('relawan')->middleware('auth:admin');
-Route::resource('admin', AdminController::class)->middleware('auth:admin');
+Route::resource('pengguna', AdminController::class)->middleware('auth:admin');
 Route::put('/update/{id}', [AdminController::class, 'update'])->middleware('auth:admin');
 
 Route::resource('partai',PartaiController::class);
