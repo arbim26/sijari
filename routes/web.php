@@ -41,7 +41,13 @@ Route::get('/register',[RegisterController::class,'showUserLoginForm'])->name('r
 Route::get('/admin/register',[RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
 Route::post('/admin/login',[LoginController::class,'adminLogin'])->name('admin.login');
 Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('admin.register');
+
 Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('auth:admin');
+Route::get('admin/caleg',[AdminController::class,'caleg'])->name('caleg')->middleware('auth:admin');
+Route::get('admin/supervisor',[AdminController::class,'supervisor'])->name('supervisor')->middleware('auth:admin');
+Route::get('admin/relawan',[AdminController::class,'relawan'])->name('relawan')->middleware('auth:admin');
+Route::resource('admin', AdminController::class)->middleware('auth:admin');
+Route::put('/update/{id}', [AdminController::class, 'update'])->middleware('auth:admin');
 
 Route::resource('partai',PartaiController::class);
 // Route::group(['prefix'=>'admin', 'middleware'=>['Admin','auth']], function(){
