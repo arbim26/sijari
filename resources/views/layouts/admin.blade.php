@@ -185,8 +185,8 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">Account</div>
+                  <a href="{{ route('partai.index') }}" class="menu-link">
+                    <div data-i18n="Account">Partai</div>
                   </a>
                 </li>
                 <li class="menu-item">
@@ -563,7 +563,10 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-
+              @yield('content')
+              <div class="buy-now">
+                <a href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/" target="_blank" class="btn btn-danger btn-buy-now">Sijari</a>
+              </div>
             </div>
             <!-- / Content -->
 

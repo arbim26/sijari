@@ -7,10 +7,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CalegController;
+use App\Http\Controllers\PartaiController;
 use App\Http\Controllers\RelawanController;
-use App\Http\Controllers\SupervisorController;
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\Auth\RegisterController;
 
 /*
@@ -42,7 +43,7 @@ Route::post('/admin/login',[LoginController::class,'adminLogin'])->name('admin.l
 Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('admin.register');
 Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('auth:admin');
 
-
+Route::resource('partai',PartaiController::class);
 // Route::group(['prefix'=>'admin', 'middleware'=>['Admin','auth']], function(){
     
 //     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
