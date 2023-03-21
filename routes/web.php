@@ -47,9 +47,11 @@ Route::get('admin/caleg',[AdminController::class,'caleg'])->name('caleg')->middl
 Route::get('admin/supervisor',[AdminController::class,'supervisor'])->name('supervisor')->middleware('auth:admin');
 Route::get('admin/relawan',[AdminController::class,'relawan'])->name('relawan')->middleware('auth:admin');
 Route::resource('pengguna', AdminController::class)->middleware('auth:admin');
+Route::get('admin/chart',[AdminController::class,'chart'])->name('chart')->middleware('auth:admin');
 Route::put('/update/{id}', [AdminController::class, 'update'])->middleware('auth:admin');
 
-Route::resource('partai',PartaiController::class);
+
+Route::resource('partai',PartaiController::class)->middleware('auth:admin');
 // Route::group(['prefix'=>'admin', 'middleware'=>['Admin','auth']], function(){
     
 //     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
