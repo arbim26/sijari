@@ -31,9 +31,49 @@ class AdminController extends Controller
         return view('dashboards.relawans.index', compact('data'));
     }
 
-    public function create(Request $request)
+    public function create_caleg(Request $request)
     {
-        
+        if ($request->validate(['name'=> 'required','email'=> 'required|unique:users','password' => 'required',])) {
+            $data = User::create([
+                'name'    => $request->name,
+                'email'    => $request->email,
+                'password' => $request->password,
+                'role'  => 1,
+            ]);
+            return redirect()->back()->with(['success' => 'Data Berhasil Disimpan!']);
+        } else {
+            return redirect()->back()->with(['error' => 'Data Gagal Disimpan!']);
+        }
+    }
+
+    public function create_supervisor(Request $request)
+    {
+        if ($request->validate(['name'=> 'required','email'=> 'required|unique:users','password' => 'required',])) {
+            $data = User::create([
+                'name'    => $request->name,
+                'email'    => $request->email,
+                'password' => $request->password,
+                'role'  => 2,
+            ]);
+            return redirect()->back()->with(['success' => 'Data Berhasil Disimpan!']);
+        } else {
+            return redirect()->back()->with(['error' => 'Data Gagal Disimpan!']);
+        }
+    }
+
+    public function create_relawan(Request $request)
+    {
+        if ($request->validate(['name'=> 'required','email'=> 'required|unique:users','password' => 'required',])) {
+            $data = User::create([
+                'name'    => $request->name,
+                'email'    => $request->email,
+                'password' => $request->password,
+                'role'  => 3,
+            ]);
+            return redirect()->back()->with(['success' => 'Data Berhasil Disimpan!']);
+        } else {
+            return redirect()->back()->with(['error' => 'Data Gagal Disimpan!']);
+        }
     }
 
     public function update(Request $request, $id)

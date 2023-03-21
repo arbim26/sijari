@@ -46,7 +46,7 @@
               <h5 class="modal-title" id="exampleModalLabel1">Tambah Caleg</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{route('create.caleg')}}" method="POST">
+            <form action="" method="POST">
               @csrf
               <div class="modal-body">
                 <div class="row">
@@ -93,7 +93,7 @@
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
-        @foreach ($data as $row)            
+        @forelse ($data as $row)            
         <tr>
           <td>{{$row->name}}</td>
           <td>{{$row->email}}</td>
@@ -122,7 +122,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Edit Caleg</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="{{ route('pengguna.update', $row->id) }}" method="POST">
+              <form action="" method="POST">
               <div class="modal-body">
                   @method('PUT')
                   @csrf
@@ -143,8 +143,11 @@
             </div>
           </div>
         </div>
-        
-        @endforeach
+        @empty
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          Belum Ada Data
+        </div>
+        @endforelse
       </tbody>
     </table>
   </div>
