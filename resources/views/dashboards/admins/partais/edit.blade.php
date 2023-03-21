@@ -30,7 +30,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label" for="basic-default-company">Ketua Partai</label>
-            <input type="text" class="form-control @error('ketua_partai') is-invalid @enderror" name="ketua_partai" value="{{ old('kelas_partai', $data->kelas_partai) }}" placeholder="Masukkan Ketua Partai" />
+            <input type="text" class="form-control @error('ketua_partai') is-invalid @enderror" name="ketua_partai" value="{{ old('ketua_partai', $data->ketua_partai) }}" placeholder="Masukkan Ketua Partai" />
 
             <!-- error message untuk title -->
             @error('ketua_partai')

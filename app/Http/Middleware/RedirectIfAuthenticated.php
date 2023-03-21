@@ -18,7 +18,7 @@ class RedirectIfAuthenticated
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next, ...$guards)
-    {
+    {   
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
@@ -34,6 +34,9 @@ class RedirectIfAuthenticated
             // }
             if ($guard == "admin" && Auth::guard($guard)->check()) {
                 return redirect('/admin/dashboard');
+            }
+            if ($guard == "caleg" && Auth::guard($guard)->check()) {
+                return redirect('/caleg/dashboard');
             }
             elseif( Auth::guard($guard)->check() && Auth::user()->role ==1){
                 return redirect()->route('caleg.dashboard');

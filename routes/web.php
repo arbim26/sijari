@@ -35,6 +35,14 @@ Auth::routes();
 
 // Route::resource('user', UserController::class);
 
+Route::get('/caleg',[LoginController::class,'showCalegLoginForm'])->name('caleg.login-view');
+Route::get('/register',[RegisterController::class,'showUserLoginForm'])->name('register');
+
+Route::get('/admin/register',[RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
+Route::post('/caleg/login',[LoginController::class,'calegLogin'])->name('caleg.login');
+Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('admin.register');
+
+
 Route::get('/admin',[LoginController::class,'showAdminLoginForm'])->name('admin.login-view');
 Route::get('/register',[RegisterController::class,'showUserLoginForm'])->name('register');
 

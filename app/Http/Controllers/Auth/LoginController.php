@@ -52,7 +52,8 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        // $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:caleg')->except('logout');
     }
 
     public function login(Request $request){
@@ -80,7 +81,7 @@ class LoginController extends Controller
 
     public function showAdminLoginForm()
     {
-        return view('auth.logmin');
+        return view('auth.adminlogin', ['url' => route('admin.login-view'), 'title'=>'Admin']);
     }
 
     public function adminLogin(Request $request)
@@ -93,6 +94,26 @@ class LoginController extends Controller
 
         if (Auth::guard('admin')->attempt((['email' => $request->email, 'password' => $request->password]))){
             return redirect()->route('admin.dashboard');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+    
+    public function showCalegLoginForm()
+    {
+        return view('auth.caleglogin', ['url' => route('caleg.login-view'), 'title'=>'Caleg']);
+    }
+
+    public function calegLogin(Request $request)
+    {
+        // dd(Auth::guard('admin')->attempt((['email' => $request->email, 'password' => $request->password])));
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('caleg')->attempt((['email' => $request->email, 'password' => $request->password]))){
+            return redirect()->route('caleg.dashboard');
         }
 
         return back()->withInput($request->only('email', 'remember'));

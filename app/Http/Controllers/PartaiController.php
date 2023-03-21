@@ -65,8 +65,9 @@ class PartaiController extends Controller
      * @param  mixed $post
      * @return void
      */
-    public function edit(Partai $data)
+    public function edit(Partai $data, $id)
     {
+        $data = Partai::find($id);
         return view('dashboards.admins.partais.edit', compact('data'));
     }
 
@@ -77,7 +78,7 @@ class PartaiController extends Controller
      * @param  mixed $post
      * @return void
      */
-    public function update(Request $request, Partai $data)
+    public function update(Request $request, $data)
     {
         //validate form
         $this->validate($request, [
@@ -115,6 +116,18 @@ class PartaiController extends Controller
         //redirect to index
         return redirect()->route('partai.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
+
+
+    // public function update(Request $request, $id)
+    // {
+    //     $data = Partai::find($id);
+    //     $data->update([
+    //         'image'     => $image->hashName(),
+    //         'nama_partai'     => $request->nama_partai,
+    //         'ketua_partai'   => $request->ketua_partai
+    //     ]);
+    //     return redirect()->back()->with(['success' => 'Data berhasil di ubah!']);
+    // }
 
     /**
      * destroy
