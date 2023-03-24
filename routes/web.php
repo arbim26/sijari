@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CalegController;
 use App\Http\Controllers\RelawanController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DependantDropdownController;
 
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\SupervisorController;
@@ -31,6 +32,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/daerah', function () {
+    return view('daerah');
+});
+
+Route::get('provinces', [DependentDropdownController::class,'rovinces'])->name('provinces');
+Route::get('cities', [DependentDropdownController::class,'cities'])->name('cities');
+Route::get('districts', [DependentDropdownController::class,'districts'])->name('districts');
+Route::get('villages', [DependentDropdownController::class,'villages'])->name('villages');
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::resource('user', UserController::class);
@@ -49,6 +59,8 @@ Route::get('admin/relawan',[AdminController::class,'relawan'])->name('relawan')-
 Route::resource('pengguna', AdminController::class)->middleware('auth:admin');
 Route::resource('masyarakat', MasyarakatController::class)->middleware('auth:admin');
 Route::put('/update/{id}', [AdminController::class, 'update'])->middleware('auth:admin');
+
+Route::post('/masyarakat/import',[MasyarakatController::class,'fileImport'])->name('masyarakat.import')->middleware('auth:admin');
 
 Route::post('/create/caleg', [AdminController::class, 'create_caleg'])->name('create.caleg')->middleware('auth:admin');
 Route::post('/create/supervisor', [AdminController::class, 'create_supervisor'])->name('create.supervisor')->middleware('auth:admin');
