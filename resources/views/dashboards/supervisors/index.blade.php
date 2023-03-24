@@ -8,7 +8,62 @@
 </div>
 @endif
 <div class="card">
-  <h5 class="card-header">Daftar Supervisor</h5>
+  <div class="d-flex card-header justify-content-between align-items-center">
+    <div>
+      <h5>Daftar Supervisor</h5> 
+    </div>
+    <div>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
+        Tambah  <i class="bx bx-plus"></i>
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel1">Tambah Caleg</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{route('create.supervisor')}}" method="POST">
+              @csrf
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col mb-3">
+                    <label for="nameBasic"  class="form-label">Nama</label>
+                    <input required type="text" id="nameBasic" name="name" class="form-control" placeholder="Maukkan Nama">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col mb-3">
+                    <label for="emailBasic"  class="form-label">Email</label>
+                    <input required type="text" id="emailBasic" name="email" class="form-control" placeholder="xxxx@xxx.xx">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col mb-0 form-password-toggle">
+                    <label for="passwordBasic"  class="form-label">Password</label>
+                    <div class="input-group input-group-merge">
+                      <input id="password" type="password" name="password" class="form-control" name="password" required autocomplete="current-password" placeholder="Password">
+                      <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                  Batal
+                </button>
+                <button type="submit" class="btn btn-primary">Selseai</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {{-- Modal --}}
+    </div>
+  </div>
   <div class="table-responsive text-nowrap">
     <table class="table">
       <thead>
