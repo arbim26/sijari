@@ -39,24 +39,17 @@ class PartaiController extends Controller
     {
         //validate form
         $this->validate($request, [
-            'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'nama_partai'     => 'required|',
-            'ketua_partai'   => 'required|'
+            'p_nama'     => 'required',
         ]);
-
-        //upload image
-        $image = $request->file('image');
-        $image->storeAs('public/partai', $image->hashName());
 
         //create post
         Partai::create([
-            'image'     =>       $image->hashName(),
-            'nama_partai'     => $request->nama_partai,
-            'ketua_partai'   => $request->ketua_partai
+            'p_nama'   => $request->p_nama,
         ]);
 
         //redirect to index
-        return redirect()->route('partai.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        // return redirect()->route('partai.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->back()->with(['success' => 'Data berhasil di ubah!']);
     }
 
     /**
@@ -65,11 +58,11 @@ class PartaiController extends Controller
      * @param  mixed $post
      * @return void
      */
-    public function edit(Partai $data, $id)
-    {
-        $data = Partai::find($id);
-        return view('dashboards.admins.partais.edit', compact('data'));
-    }
+    // public function edit(Partai $data, $id)
+    // {
+    //     $data = Partai::find($id);
+    //     return view('dashboards.admins.partais.edit', compact('data'));
+    // }
 
     /**
      * update
@@ -78,56 +71,15 @@ class PartaiController extends Controller
      * @param  mixed $post
      * @return void
      */
-    public function update(Request $request, $data)
+    public function update(Request $request, $id)
     {
-        //validate form
-        $this->validate($request, [
-            'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'nama_partai'     => 'required|',
-            'ketua_partai'   => 'required|'
+        $data = Partai::find($id);
+        $data->update([
+            'p_nama' => $request->p_nama,
         ]);
-
-        //check if image is uploaded
-        if ($request->hasFile('image')) {
-
-            //upload new image
-            $image = $request->file('image');
-            $image->storeAs('public/partai', $image->hashName());
-
-            //delete old image
-            Storage::delete('public/partai/'.$data->image);
-
-            //update post with new image
-            $data->update([
-                'image'     => $image->hashName(),
-                'nama_partai'     => $request->nama_partai,
-                'ketua_partai'   => $request->ketua_partai
-            ]);
-
-        } else {
-
-            //update post without image
-            $data->update([
-                'nama_partai'     => $request->nama_partai,
-                'ketua_partai'   => $request->ketua_partai
-            ]);
-        }
-
-        //redirect to index
-        return redirect()->route('partai.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->back()->with(['success' => 'Data berhasil di ubah!']);
     }
 
-
-    // public function update(Request $request, $id)
-    // {
-    //     $data = Partai::find($id);
-    //     $data->update([
-    //         'image'     => $image->hashName(),
-    //         'nama_partai'     => $request->nama_partai,
-    //         'ketua_partai'   => $request->ketua_partai
-    //     ]);
-    //     return redirect()->back()->with(['success' => 'Data berhasil di ubah!']);
-    // }
 
     /**
      * destroy
@@ -135,15 +87,23 @@ class PartaiController extends Controller
      * @param  mixed $post
      * @return void
      */
-    public function destroy(Partai $data)
+    public function destroy($id)
     {
-        //delete image
-        Storage::delete('public/partai/'. $data->image);
-
-        //delete post
+        $data = Partai::find($id);
         $data->delete();
-
-        //redirect to index
-        return redirect()->route('partai.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->back()->with(['success' => 'Data berhasil di hapus!']);
     }
+
+    // public function destroy(Partai $data)
+    // {
+    //     //delete image
+    //     Storage::delete('public/partai/'. $data->image);
+
+    //     //delete post
+    //     $data->delete();
+
+    //     //redirect to index
+    //     return redirect()->route('partai.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    // }
+
 }

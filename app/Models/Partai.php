@@ -17,8 +17,6 @@ class Partai extends Model
     protected $table = 'partai';
 
     protected $fillable = [
-        'nama_partai',
-        'ketua_partai',
-        'image',
+        'p_nama',
     ];
 }

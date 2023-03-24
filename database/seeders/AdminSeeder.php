@@ -19,9 +19,8 @@ class AdminSeeder extends Seeder
     public function run()
     {
         \App\Models\Admin::factory()->create([
-            'name' =>'Admin',
+            'name' =>'admin',
             'email' =>'admin@gmail.com',
-            'role' => 0,
             'password' =>bcrypt('123456789'),
             'remember_token' =>Str::random('60'),
         ]);

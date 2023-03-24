@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('caleg', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama');
-            $table->string('email')->unique();
-            $table->boolean('role')->nullable();
+            $table->string('nik')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

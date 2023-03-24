@@ -32,16 +32,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::resource('user', UserController::class);
 
 Route::get('/caleg',[LoginController::class,'showCalegLoginForm'])->name('caleg.login-view');
 Route::get('/register',[RegisterController::class,'showUserLoginForm'])->name('register');
 
-Route::get('/admin/register',[RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
+Route::get('/caleg/register',[RegisterController::class,'showCalegRegisterForm'])->name('caleg.register-view');
 Route::post('/caleg/login',[LoginController::class,'calegLogin'])->name('caleg.login');
-Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('admin.register');
+Route::post('/caleg/register',[RegisterController::class,'createCaleg'])->name('caleg.register');
 
 
 Route::get('/admin',[LoginController::class,'showAdminLoginForm'])->name('admin.login-view');
@@ -52,11 +52,13 @@ Route::post('/admin/login',[LoginController::class,'adminLogin'])->name('admin.l
 Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('admin.register');
 
 Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('auth:admin');
+Route::get('chart',[AdminController::class,'chart'])->name('admin.chart')->middleware('auth:admin');
 Route::get('admin/caleg',[AdminController::class,'caleg'])->name('caleg')->middleware('auth:admin');
 Route::get('admin/supervisor',[AdminController::class,'supervisor'])->name('supervisor')->middleware('auth:admin');
 Route::get('admin/relawan',[AdminController::class,'relawan'])->name('relawan')->middleware('auth:admin');
 Route::resource('pengguna', AdminController::class)->middleware('auth:admin');
 Route::resource('masyarakat', MasyarakatController::class)->middleware('auth:admin');
+Route::resource('partai', PartaiController::class)->middleware('auth:admin');
 Route::put('/update/{id}', [AdminController::class, 'update'])->middleware('auth:admin');
 
 Route::post('/create/caleg', [AdminController::class, 'create_caleg'])->name('create.caleg')->middleware('auth:admin');

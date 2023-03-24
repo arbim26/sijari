@@ -1,140 +1,138 @@
 @extends('layouts.admin')
 
 @section('content')
-<!-- Table within card -->
-{{-- <h3 class="mb-4">Partai</h3> --}}
-<br>
-<a href="{{ route('partai.create') }}" class="btn btn-md btn-success mb-3">Tambah Partai</a>
+
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-dismissible" role="alert">
+  {{$message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+@error('name')
+<div class="alert alert-danger alert-dismissible" role="alert">
+  {{$message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@enderror
+@error('email')
+<div class="alert alert-danger alert-dismissible" role="alert">
+  {{$message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@enderror
+@error('password')
+<div class="alert alert-danger alert-dismissible" role="alert">
+  {{$message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@enderror
+
 <div class="card">
-<div class="table-responsive text-nowrap">
-  <table class="table card-table">
-    <thead>
-      <tr>
-        <th>Nama Partai</th>
-        <th>Ketua Partai</th>
-        <th>Logo</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    @foreach ($data as $row)
-    <tbody class="table-border-bottom-0">
-      <tr>
-        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$row->nama_partai}}</strong></td>
-        <td>{{$row->ketua_partai}}</td>
-        <td>
-          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="{{$row->image}}">
-              <img src="{{ Storage::url('public/partais/').$row->image }}" alt="Avatar" class="rounded-circle">
-            </li>
-          </ul>
-        </td>
-        <td><span class="badge bg-label-primary me-1">Active</span></td>
-        <td>
-          <div class="dropdown">
-            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-            <div class="dropdown-menu">
-              <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('partai.destroy', $row->id) }}" method="POST">
-              <a class="dropdown-item" href="{{ route('partai.edit', $row->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+  <div class="d-flex card-header justify-content-between align-items-center">
+    <div>
+      <h5>Partai</h5> 
+    </div>
+    <div>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
+        Tambah  <i class="bx bx-plus"></i>
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel1">Tambah Partai</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="POST">
+              @csrf
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col mb-3">
+                    <label for="nameBasic"  class="form-label">Nama Partai</label>
+                    <input required type="text" id="nameBasic" name="p_nama" class="form-control" placeholder="Masukkan Nama Partai">
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                  Batal
+                </button>
+                <button type="submit" class="btn btn-primary">Selesai</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {{-- Modal --}}
+    </div>
+  </div>
+  <div class="table-responsive text-nowrap">
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nama Partai</th>
+          
+        </tr>
+      </thead>
+      <tbody class="table-border-bottom-0">
+        @forelse ($data as $row)            
+        <tr>
+          <td>{{$row->p_nama}}</td>
+          <td style="display: flex; gap: 20px" >
+            <form class="d-flex gap-4 " onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('partai.destroy', $row->id) }}" method="POST">
               @csrf
               @method('DELETE')
-              <button type="submit" class="btn"><i class="bx bx-trash me-1"></i> Delete</button>
-              {{-- <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a> --}}
+              <div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$row->id}}">
+                  <i class="bx bx-edit-alt me-1"></i>Edit
+                </button>
+              </div>
+              <div>
+                <button class="btn btn-danger">
+                  <i class="bx bx-trash me-1"></i> Delete
+                </button> 
+              </div>
+            </form>
+          </td>
+        </tr>
+
+        <div class="modal fade" id="exampleModal{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Partai</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="{{ route('partai.update', $row->id) }}" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                  @method('PUT')
+                  @csrf
+                  <div class="mb-3">
+                    <label for="defaultFormControlInput" class="form-label">Nama Partai</label>
+                    <input type="text" class="form-control" name="p_nama" id="defaultFormControlInput" value="{{$row->p_nama}}" aria-describedby="defaultFormControlHelp">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                  <button type="submit" class="btn btn-primary">Selasai</button>
+                </div>
               </form>
             </div>
           </div>
-        </td>
-      </tr>
-      @endforeach
-      {{-- <tr>
-        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
-        <td>Barry Hunter</td>
-        <td>
-          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
-              <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle">
-            </li>
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
-              <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle">
-            </li>
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Christina Parker">
-              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle">
-            </li>
-          </ul>
-        </td>
-        <td><span class="badge bg-label-success me-1">Completed</span></td>
-        <td>
-          <div class="dropdown">
-            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-              <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><i class="fab fa-vuejs fa-lg text-success me-3"></i> <strong>VueJs Project</strong></td>
-        <td>Trevor Baker</td>
-        <td>
-          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
-              <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle">
-            </li>
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
-              <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle">
-            </li>
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Christina Parker">
-              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle">
-            </li>
-          </ul>
-        </td>
-        <td><span class="badge bg-label-info me-1">Scheduled</span></td>
-        <td>
-          <div class="dropdown">
-            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-              <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>Bootstrap Project</strong></td>
-        <td>Jerry Milton</td>
-        <td>
-          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
-              <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle">
-            </li>
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
-              <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle">
-            </li>
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Christina Parker">
-              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle">
-            </li>
-          </ul>
-        </td>
-        <td><span class="badge bg-label-warning me-1">Pending</span></td>
-        <td>
-          <div class="dropdown">
-            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-              <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-            </div>
-          </div>
-        </td>
-      </tr> --}}
-      {{-- @empty
-          <div class="alert alert-danger">
-              Data Partai belum Tersedia.
-          </div>
-      @endforelse --}}
-    </tbody>
-  </table>
-  {{ $data->links() }}
+        </div>
+        @empty
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          Belum ada data
+        </div>
+        @endforelse
+      </tbody>
+    </table>
+  </div>
 </div>
-<!--/ Table within card -->
+
+
 @endsection

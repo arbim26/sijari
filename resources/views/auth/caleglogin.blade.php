@@ -1,7 +1,7 @@
+<title>Login Caleg</title>
 @extends('layouts.login')
 
 @section('content')
-
           <div class="card">
             <div class="card-body">
               <!-- Logo -->

@@ -31,10 +31,10 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
         protected function redirectTo(){
-            if( Auth()->admin()->role == 0){
+            if( Auth()->admin()){
                 return route('admin.dashboard');
             }
-            elseif( Auth()->user()->role == 1){
+            elseif( Auth()->Admin()){
                 return route('caleg.dashboard');
             }
             elseif( Auth()->user() == 2){
@@ -65,10 +65,10 @@ class LoginController extends Controller
         // dd($request->all());
 
         if( auth()->attempt(array('email'=>$input['email'], 'password'=>$input['password'])) ){
-            if( auth()->user()->role == 1 ){
-                return redirect()->route('caleg.dashboard');
-            }
-            elseif( auth()->user()->role == 2 ){
+            // if( auth()->user()->role == 1 ){
+            //     return redirect()->route('caleg.dashboard');
+            // }
+            if( auth()->user()->role == 2 ){
                 return redirect()->route('supervisor.dashboard');
             }
             elseif( auth()->user()->role == 3 ){
@@ -88,15 +88,15 @@ class LoginController extends Controller
     {
         // dd(Auth::guard('admin')->attempt((['email' => $request->email, 'password' => $request->password])));
         $this->validate($request, [
-            'email'   => 'required|email',
+            'name'   => 'required',
             'password' => 'required|min:6'
         ]);
 
-        if (Auth::guard('admin')->attempt((['email' => $request->email, 'password' => $request->password]))){
+        if (Auth::guard('admin')->attempt((['name' => $request->name, 'password' => $request->password]))){
             return redirect()->route('admin.dashboard');
         }
 
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput($request->only('name', 'remember'));
     }
     
     public function showCalegLoginForm()
@@ -106,7 +106,7 @@ class LoginController extends Controller
 
     public function calegLogin(Request $request)
     {
-        // dd(Auth::guard('admin')->attempt((['email' => $request->email, 'password' => $request->password])));
+        // dd(Auth::guard('caleg')->attempt((['email' => $request->email, 'password' => $request->password])));
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6'
