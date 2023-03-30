@@ -15,11 +15,12 @@ class Masyarakat extends Model
         'nik',
         'nama',
         'tempat_lahir',
-        'tanggal_lahir',
+        'tangal_lahir',
         'jenis_kelamin',
         'jalan/desa',
+        'disabilitas',
         'rt',
         'rw',
-        'keerangan',
+        'keterangan',
     ];
 }
