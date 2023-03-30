@@ -101,4 +101,14 @@ class AdminController extends Controller
         
         return view('dashboards.admins.chart', compact('userData'));
     }
+
+    function chartCaleg(){
+
+        return view('dashboards.admins.chart-caleg');
+    }
+
+    function user(){
+
+        return view('dashboards.admins.user');
+    }
 }

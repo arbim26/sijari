@@ -203,6 +203,12 @@
                   <a href="{{ route('admin.chart') }}" class="menu-link">
                     <div data-i18n="Account">Chart</div>
                   </a>
+                  <a href="{{ route('admin.chart.caleg') }}" class="menu-link">
+                    <div data-i18n="Account">Chart Caleg</div>
+                  </a>
+                  <a href="{{ route('admin.chart.tps') }}" class="menu-link">
+                    <div data-i18n="Account">Chart TPS</div>
+                  </a>
                 </li>
               </ul>
             </li>
@@ -212,6 +218,21 @@
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Masyarakat</div>
               </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                {{-- <i class='menu-icon bx bxs-bar-chart-alt-2'></i> --}}
+                <i class='menu-icon bx bxs-user'></i>
+                <div data-i18n="Account Settings">User</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('admin.user') }}" class="menu-link">
+                    <div data-i18n="Account">Chart</div>
+                  </a>
+                </li>
+              </ul>
             </li>
         </aside>
         <!-- / Menu -->

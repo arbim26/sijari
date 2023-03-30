@@ -15,7 +15,7 @@
             <label class="col-md-3 col-form-label" for="provinsi">Provinsi</label>
             <div class="col-md-9">
                 @php
-                    $provinces = new App\Http\Controllers\DependentDropdownController;
+                    $provinces = new App\Http\Controllers\DaerahController;
                     $provinces= $provinces->provinces();
                 @endphp
                 <select class="form-control" name="provinsi" id="provinsi" required>

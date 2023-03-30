@@ -10,7 +10,7 @@ use App\Http\Controllers\CalegController;
 use App\Http\Controllers\PartaiController;
 use App\Http\Controllers\RelawanController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DependantDropdownController;
+use App\Http\Controllers\DependentDropdownController;
 
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\SupervisorController;
@@ -37,10 +37,10 @@ Route::get('/daerah', function () {
     return view('daerah');
 });
 
-Route::get('provinces', [DependentDropdownController::class,'rovinces'])->name('provinces');
-Route::get('cities', [DependentDropdownController::class,'cities'])->name('cities');
-Route::get('districts', [DependentDropdownController::class,'districts'])->name('districts');
-Route::get('villages', [DependentDropdownController::class,'villages'])->name('villages');
+Route::get('provinces', [DaerahController::class,'rovinces'])->name('provinces');
+Route::get('cities', [DaerahController::class,'cities'])->name('cities');
+Route::get('districts', [DaerahController::class,'districts'])->name('districts');
+Route::get('villages', [DaerahController::class,'villages'])->name('villages');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -63,9 +63,12 @@ Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('
 
 Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('auth:admin');
 Route::get('chart',[AdminController::class,'chart'])->name('admin.chart')->middleware('auth:admin');
+Route::get('chart/caleg',[AdminController::class,'chartCaleg'])->name('admin.chart-caleg')->middleware('auth:admin');
+Route::get('chart/tps',[AdminController::class,'chartTPS'])->name('admin.chart-tps')->middleware('auth:admin');
 Route::get('admin/caleg',[AdminController::class,'caleg'])->name('caleg')->middleware('auth:admin');
 Route::get('admin/supervisor',[AdminController::class,'supervisor'])->name('supervisor')->middleware('auth:admin');
 Route::get('admin/relawan',[AdminController::class,'relawan'])->name('relawan')->middleware('auth:admin');
+Route::get('admin/user',[AdminController::class,'user'])->name('admin.user')->middleware('auth:admin');
 Route::resource('pengguna', AdminController::class)->middleware('auth:admin');
 Route::resource('masyarakat', MasyarakatController::class)->middleware('auth:admin');
 Route::resource('partai', PartaiController::class)->middleware('auth:admin');

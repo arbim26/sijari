@@ -38,9 +38,9 @@ class RedirectIfAuthenticated
             if ($guard == "caleg" && Auth::guard($guard)->check()) {
                 return redirect('/caleg/dashboard');
             }
-            elseif( Auth::guard($guard)->check() && Auth::user()->role ==1){
-                return redirect()->route('caleg.dashboard');
-            }
+            // elseif( Auth::guard($guard)->check() && Auth::user()->role ==1){
+            //     return redirect()->route('caleg.dashboard');
+            // }
             elseif( Auth::guard($guard)->check() && Auth::user()->role ==2){
                 return redirect()->route('supervisor.dashboard');
             }
