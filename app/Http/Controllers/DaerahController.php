@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Indonesia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
 
 
 class DaerahController extends Controller
@@ -17,7 +19,7 @@ class DaerahController extends Controller
 
     public function cities(Request $request)
     {
-        return \Indonesia::findProvince($request->id, ['cities'])->cities->pluck('name', 'id');
+        return Indonesia::findProvince($request->id, ['cities'])->cities->pluck('name', 'id');
     }
 
     public function districts(Request $request)

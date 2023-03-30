@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Admin;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Caleg;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider; 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -42,6 +43,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
         $this->middleware('guest:admin');
+        $this->middleware('guest:caleg');
     }   
 
     /**
@@ -70,7 +72,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'role' => $data['1,2,3'],
+            // 'role' => $data['1,2,3'],
             'password' => Hash::make($data['password']),
         ]);
     }
@@ -89,5 +91,27 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
         return redirect()->intended('admin.dashboard');
+    }
+
+    public function showCalegRegisterForm()
+    {
+        return view('auth.register', ['route' => route('caleg.register-view'), 'title'=>'Caleg']);
+    }
+
+    protected function createCaleg(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $caleg = Caleg::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        
+        // return Caleg::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
+        return redirect()->intended('caleg.dashboard');
     }
 }

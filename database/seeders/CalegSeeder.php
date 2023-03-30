@@ -2,14 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
+use App\Models\Caleg;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class AdminSeeder extends Seeder
+class CalegSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,9 +16,9 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Admin::factory()->create([
-            'name' =>'admin',
-            'email' =>'admin@gmail.com',
+        \App\Models\Caleg::factory()->create([
+            'name' =>'caleg',
+            'email' =>'caleg@gmail.com',
             'password' =>bcrypt('123456789'),
             'remember_token' =>Str::random('60'),
         ]);

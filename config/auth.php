@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        'caleg' => [
+            'driver' => 'session',
+            'provider' => 'calegs',
+        ],
     ],
 
     /*
@@ -71,6 +75,10 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+        'calegs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Caleg::class,
         ],
         // 'users' => [
         //     'driver' => 'database',
@@ -102,6 +110,12 @@ return [
         ],
         'admins' => [
             'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'calegs' => [
+            'provider' => 'calegs',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

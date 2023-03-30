@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Indonesia;
 
 class DependentDropdownController extends Controller
 {
@@ -13,7 +15,7 @@ class DependentDropdownController extends Controller
 
     public function cities(Request $request)
     {
-        return \Indonesia::findProvince($request->id, ['cities'])->cities->pluck('name', 'id');
+        return Indonesia::findProvince($request->id, ['cities'])->cities->pluck('name', 'id');
     }
 
     public function districts(Request $request)

@@ -44,26 +44,26 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets_admin/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="../../../../assets_admin/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets_admin/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets_admin/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets_admin/css/demo.css" />
+    <link rel="stylesheet" href="../../../../assets_admin/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../../../../assets_admin/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../../../../assets_admin/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../../../../assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <link rel="stylesheet" href="../assets_admin/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="../../../../assets_admin/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="../assets_admin/vendor/js/helpers.js"></script>
+    <script src="../../../../assets_admin/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+    <script src="../../../../assets/js/config.js"></script>
   </head>
 
   <body>
@@ -169,8 +169,45 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="{{route('relawan')}}" class="menu-link">
-                    <div data-i18n="Container">Relawan</div>
+                  <a href="layouts-container.html" class="menu-link">
+                    <div data-i18n="Container">Supervisor</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Pages</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">Partai</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('partai.index') }}" class="menu-link">
+                    <div data-i18n="Account">Partai</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon bx bxs-bar-chart-alt-2'></i>
+                <div data-i18n="Account Settings">Charts</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('admin.chart') }}" class="menu-link">
+                    <div data-i18n="Account">Chart</div>
+                  </a>
+                  <a href="{{ route('admin.chart.caleg') }}" class="menu-link">
+                    <div data-i18n="Account">Chart Caleg</div>
+                  </a>
+                  <a href="{{ route('admin.chart.tps') }}" class="menu-link">
+                    <div data-i18n="Account">Chart TPS</div>
                   </a>
                 </li>
               </ul>
@@ -181,6 +218,21 @@
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Masyarakat</div>
               </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                {{-- <i class='menu-icon bx bxs-bar-chart-alt-2'></i> --}}
+                <i class='menu-icon bx bxs-user'></i>
+                <div data-i18n="Account Settings">User</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('admin.user') }}" class="menu-link">
+                    <div data-i18n="Account">Chart</div>
+                  </a>
+                </li>
+              </ul>
             </li>
         </aside>
         <!-- / Menu -->
@@ -274,13 +326,14 @@
           </nav>
 
           <!-- / Navbar -->
-
+          
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
+            
             <div class="container-xxl flex-grow-1 container-p-y">
               @yield('content')
+
             </div>
             <!-- / Content -->
 
@@ -309,25 +362,24 @@
     @yield('js')
 
 
-
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets_admin/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets_admin/vendor/libs/popper/popper.js"></script>
-    <script src="../assets_admin/vendor/js/bootstrap.js"></script>
-    <script src="../assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../../../assets_admin/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../../../assets_admin/vendor/libs/popper/popper.js"></script>
+    <script src="../../../../assets_admin/vendor/js/bootstrap.js"></script>
+    <script src="../../../../assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="../assets_admin/vendor/js/menu.js"></script>
+    <script src="../../../../assets_admin/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../_admin/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="../../../../_admin/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
-    <script src="../assets_admin/js/main.js"></script>
+    <script src="../../../../assets_admin/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
+    <script src="../../../../assets/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

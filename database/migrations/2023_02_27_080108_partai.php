@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('partai', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
+            $table->string('p_nama');
             $table->timestamps();
         });
     }
